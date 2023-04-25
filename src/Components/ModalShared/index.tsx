@@ -29,7 +29,6 @@ interface ISharePlatform {
 
 interface IShareData {
   message: ISharePlatform,
-  url: ISharePlatform
 }
 
 interface IModalProps {
@@ -90,7 +89,6 @@ const ModalShared: React.FC<IModalProps> = ({
 
       Share.share({
         message: value.message[Platform.OS],
-        url: value.url[Platform.OS],
         title: strings('indication.join_our_app'),
       }, options);
     } catch (error) {

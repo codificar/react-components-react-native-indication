@@ -273,20 +273,12 @@ const IndicationScreen: React.FC<IProps> = ({
               ios: data.ios_client_message_referral,
               android: data.android_client_message_referral,
             },
-            url: {
-              ios: 'iOS url',
-              android: 'android url',
-            }
           }}
           provider={{
             message: {
               ios: data.ios_provider_message_referral,
               android: data.android_provider_message_referral,
             },
-            url: {
-              ios: 'iOS url',
-              android: 'android url',
-            }
           }}
         />
         <ModalQrCode
