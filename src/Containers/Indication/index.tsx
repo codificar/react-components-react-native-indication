@@ -302,7 +302,7 @@ const IndicationScreen: React.FC<IProps> = ({
           }}
         />
         <ContainerHeader>
-          <IconHeader onPress={goBack} name='arrow-left' color={String(theme?.colors?.title)} type="font-awesome-5" />
+          <IconHeader onPress={() => goBack()} name='arrow-left' color={String(theme?.colors?.title)} type="font-awesome-5" />
           <Title color={theme?.colors?.title}>{data.program_name}</Title>
         </ContainerHeader>
         <ContainerBody>
