@@ -20,8 +20,10 @@ export const ContainerHeader = styled.View`
 `
 
 export const ContainerBody = styled.View`
+  display: flex;
   flex: 1;
   justify-content: center;
+  align-items: center;
 `
 
 export const IconHeader = styled(RNEIcon).attrs({
@@ -31,9 +33,10 @@ export const IconHeader = styled(RNEIcon).attrs({
 export const Image = styled.ImageBackground<ITheme>`
   aspect-ratio: 0.7143;
   border-style: solid;
-  border-width: 1px;
+  border-width: 3px;
   border-radius: 5px;
-
+  display: flex;
+  flex: 1;
   ${props => (props.color) && css`
     border-color: ${String(props.color)};
   `};
