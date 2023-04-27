@@ -289,6 +289,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
           }}
         />
         <ModalQrCode
+          language={language}
           showModal={showModalQRCode}
           getQRCodeURL={URLs.getQRCode}
           setShowModal={setShowModalQRCode}
