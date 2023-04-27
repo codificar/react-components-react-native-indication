@@ -5,8 +5,8 @@ import Share from 'react-native-share';
 import RNFetchBlob from "rn-fetch-blob";
 import Toast from 'react-native-root-toast';
 
-// Locales
-import { strings } from '../../Locales/i18n';
+// Locale
+import { languages } from '../../Locales/index.js';
 
 // Styles
 import {
@@ -23,6 +23,7 @@ import {
 } from './styles';
 
 interface IProps {
+  language: string,
   getQRCodeURL: string;
   setShowModal: React.Dispatch<boolean>;
   handlerException: (title: string, error: string) => void;
@@ -42,6 +43,7 @@ interface IProps {
 }
 
 const ModalQrCode: React.FC<IProps> = ({
+  language,
   data,
   colors,
   showModal,
@@ -60,6 +62,9 @@ const ModalQrCode: React.FC<IProps> = ({
     Toast.show(message, { duration: Toast.durations.LONG });
 		handlerException && handlerException(`ModalQrCode.${location}`, error);
 	}, [handlerException])
+
+  //Get the lang from props. If hasn't lang in props, default is pt-BR
+  const strings = languages(language);
 
   /**
    * Função responsável por carregar o QR Code.
@@ -88,7 +93,7 @@ const ModalQrCode: React.FC<IProps> = ({
 
       setImageQrCode(newImageUrl);
     } catch (error) {
-      notifyException(strings('indication.qr_code_error'), error, 'getQrCodeIndication');
+      notifyException(strings.indication.qr_code_error, error, 'getQrCodeIndication');
       setShowModal(false)
     }
   }, [notifyException, getQRCodeURL, data])
@@ -128,9 +133,9 @@ const ModalQrCode: React.FC<IProps> = ({
    */
   const shareIndicationQrCode = useCallback(async (imageBase64) => {
     await Share.open({
-      message: strings('indication.join_our_app'),
+      message: strings.indication.join_our_app,
       url: `data:image/png;base64,${imageBase64}`,
-      title: strings('indication.join_our_app'),
+      title: strings.indication.join_our_app,
     }).catch(error => {
       handlerException('ModalQrCode.shareIndicationQrCode', error);
     });
@@ -155,7 +160,7 @@ const ModalQrCode: React.FC<IProps> = ({
             type="font-awesome-5"
           />
           <Title color={String(colors?.title)}>
-            {strings('indication.share_referral_code')}
+            {strings.indication.share_referral_code}
           </Title>
         </ContainerHeader>
         <ContainerBody>
@@ -173,7 +178,7 @@ const ModalQrCode: React.FC<IProps> = ({
           color={String(colors?.button)}
           onPress={() => convertToBase64AndShare()}
         >
-          <TextButtonShare color={String(colors?.textButton)}>{strings('indication.share')}</TextButtonShare>
+          <TextButtonShare color={String(colors?.textButton)}>{strings.indication.share}</TextButtonShare>
         </ButtonShare>
 
       </Container>

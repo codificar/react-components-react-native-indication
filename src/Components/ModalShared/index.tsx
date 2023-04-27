@@ -3,8 +3,6 @@ import React, { useCallback } from 'react'
 import { Platform, Share } from 'react-native';
 import Toast from 'react-native-root-toast';
 
-// Locales
-import { strings } from '../../Locales/i18n';
 
 // Styles
 import {
@@ -20,6 +18,8 @@ import {
   Title
 } from './styles'
 
+// Locale
+import { languages } from '../../Locales/index.js';
 
 // Interfaces
 interface ISharePlatform {
@@ -32,6 +32,7 @@ interface IShareData {
 }
 
 interface IModalProps {
+  language: string,
   client: IShareData,
   provider: IShareData,
   showModal: Boolean;
@@ -46,6 +47,7 @@ interface IModalProps {
 }
 
 const ModalShared: React.FC<IModalProps> = ({
+  language,
   colors,
   client,
   provider,
@@ -63,6 +65,9 @@ const ModalShared: React.FC<IModalProps> = ({
 	}, [handlerException])
 
 
+  //Get the lang from props. If hasn't lang in props, default is pt-BR
+  const strings = languages(language);
+
   /**
    * Função responsável por fechar o modal
    *
@@ -79,7 +84,7 @@ const ModalShared: React.FC<IModalProps> = ({
     try {
       const options = Platform.OS === 'android'
         ? {
-            dialogTitle: strings('indication.share_indication_code'),
+            dialogTitle: strings.indication.share_indication_code,
           }
         : {
             excludedActivityTypes: [
@@ -89,10 +94,10 @@ const ModalShared: React.FC<IModalProps> = ({
 
       Share.share({
         message: value.message[Platform.OS],
-        title: strings('indication.join_our_app'),
+        title: strings.indication.join_our_app,
       }, options);
     } catch (error) {
-      notifyException(strings('indication.share_code_error'), error, 'handlerShareCode')
+      notifyException(strings.indication.share_code_error, error, 'handlerShareCode')
     } finally {
       HandleCloseModal()
     }
@@ -109,7 +114,7 @@ const ModalShared: React.FC<IModalProps> = ({
         <Container>
           <CloseRanger onPress={HandleCloseModal}></CloseRanger>
 					<ContainerInner>
-						<Title color={colors?.title}>{strings('indication.title_shared')}</Title>
+						<Title color={colors?.title}>{strings.indication.title_shared}</Title>
 						<Buttom onPress={() => handlerShareCode(client)} color={colors?.button}>
               <ContainerIcon>
                 <Icon
@@ -119,7 +124,7 @@ const ModalShared: React.FC<IModalProps> = ({
                   name="user"
                 />
               </ContainerIcon>
-							<Text color={colors?.textButton}>{strings('indication.client_buttom')}</Text>
+							<Text color={colors?.textButton}>{strings.indication.client_buttom}</Text>
 						</Buttom>
 						<Buttom onPress={() => handlerShareCode(provider)} color={colors?.button}>
               <ContainerIcon>
@@ -130,7 +135,7 @@ const ModalShared: React.FC<IModalProps> = ({
                   name="car"
                 />
               </ContainerIcon>
-							<Text color={colors?.textButton}>{strings('indication.provider_buttom')}</Text>
+							<Text color={colors?.textButton}>{strings.indication.provider_buttom}</Text>
 						</Buttom>
 					</ContainerInner>
         </Container>
