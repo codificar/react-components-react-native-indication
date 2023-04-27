@@ -28,8 +28,9 @@ interface IProps {
   handlerException: (title: string, error: string) => void;
   showModal: boolean;
   data: {
-    provider_id: number;
-    provider_token: string;
+    type: string;
+    id: number;
+    token: string;
     qr_code: string;
   }
   colors?: {
@@ -70,8 +71,9 @@ const ModalQrCode: React.FC<IProps> = ({
       setIsLoading(true)
 
       const response = await Axios.post(getQRCodeURL, {
-        provider_id: data.provider_id,
-        token: data.provider_token,
+        provider_id: data.type == 'provider' ? data.id : null,
+        user_id: data.type == 'user' ? data.id : null,
+        token: data.token,
         referral_code: data.qr_code
       })
 

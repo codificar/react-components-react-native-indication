@@ -54,9 +54,9 @@ interface IProps {
       text: string;
     },
   },
-  providerId: number;
-  providerToken: string;
-  activeRegisterLinkAndMedia: boolean;
+  type: string,
+  id: number;
+  token: string;
   handlerException: (title: string, error: string) => void;
   goBack: React.Dispatch<void>;
 }
@@ -64,6 +64,7 @@ interface IProps {
 interface IData {
   success: boolean;
   referral_code: string;
+  active_register_link_and_media: boolean;
   show_provider_menu_indication: boolean;
   android_provider_message_referral: string;
   ios_provider_message_referral: string;
@@ -82,12 +83,12 @@ interface IData {
   share_indication_code: string;
 }
 
-const IndicationScreen: React.FC<IProps> = ({
+const IndicationScreenLib: React.FC<IProps> = ({
   URLs,
   theme,
-  providerId,
-  providerToken,
-  activeRegisterLinkAndMedia,
+  type,
+  id,
+  token,
   goBack,
   handlerException
 }) => {
@@ -113,7 +114,7 @@ const IndicationScreen: React.FC<IProps> = ({
    */
   const notifyException = useCallback((message: string, error: string, location: string) => {
     Toast.show(message, { duration: Toast.durations.LONG });
-		handlerException && handlerException(`IndicationScreen.${location}`, error);
+		handlerException && handlerException(`IndicationScreenLib.${location}`, error);
 	}, [handlerException])
 
   /**
@@ -137,7 +138,7 @@ const IndicationScreen: React.FC<IProps> = ({
    */
   const handleShared = useCallback(() => {
     try {
-      if (activeRegisterLinkAndMedia) {
+      if (data.active_register_link_and_media) {
         const options = Platform.OS === 'android'
         ? {
             dialogTitle: strings('indication.share_indication_code'),
@@ -158,7 +159,7 @@ const IndicationScreen: React.FC<IProps> = ({
     } catch (error) {
       notifyException(strings('indication.shared_error'), error, 'handleShared')
     }
-  }, [data, activeRegisterLinkAndMedia, notifyException])
+  }, [data, notifyException])
 
   /**
    * Função responsável por usar um código de indicação de terceiros.
@@ -176,11 +177,12 @@ const IndicationScreen: React.FC<IProps> = ({
         return;
       }
 
+
       await Axios.post(URLs.createLedgerParent, {
-        provider_id: providerId,
-        token: providerToken,
+        id,
+        token,
         referral_code: inputReferralCode,
-        type: 'provider'
+        type
       })
     } catch (error) {
       notifyException(strings('indication.create_ledger_error'), error, 'handlerCreateLedgerParent')
@@ -188,7 +190,7 @@ const IndicationScreen: React.FC<IProps> = ({
       setLoadingIndication(false)
     }
 
-	}, [inputReferralCode, providerId, providerToken, notifyException])
+	}, [inputReferralCode, id, token, notifyException])
 
   /**
    * Função responsável por atualizar um código de indicação.
@@ -206,9 +208,11 @@ const IndicationScreen: React.FC<IProps> = ({
         return;
       }
 
+      data
+
       const response = await Axios.post(URLs.updateReferralCode, {
-        provider_id: providerId,
-        token: providerToken,
+        id,
+        token,
         referral_code: inputMyCode,
       })
 
@@ -228,7 +232,7 @@ const IndicationScreen: React.FC<IProps> = ({
     } finally {
       setLoadingMyCode(false)
     }
-	}, [inputMyCode, providerId, providerToken])
+	}, [inputMyCode, id, token])
 
   /**
    * Função responsável por carregar os dados.
@@ -237,13 +241,9 @@ const IndicationScreen: React.FC<IProps> = ({
   const LoadData = useCallback(async () => {
 		try {
       setLoading(true)
-
-      console.log(JSON.stringify({provider_id: providerId, token: providerToken}, null, 4))
       const response = await Axios.get(URLs.getIndication, {
-        params: {provider_id: providerId, token: providerToken, },
+        params: {id, token, },
       });
-
-      console.log(JSON.stringify(response.data, null, 4))
 
       if(!response.data.success) throw new Error(response.data.error || response.data.errors);
 
@@ -252,9 +252,10 @@ const IndicationScreen: React.FC<IProps> = ({
       setLoading(false)
 
 		} catch (error) {
+      goBack();
       notifyException(strings('indication.load_data_error'), error, 'loadData')
 		}
-	}, [providerId, providerToken])
+	}, [id, token])
 
   useEffect(() => { LoadData() }, [LoadData])
 
@@ -288,8 +289,9 @@ const IndicationScreen: React.FC<IProps> = ({
           handlerException={handlerException}
           colors={theme.colors}
           data={{
-            provider_id: providerId,
-            provider_token: providerToken,
+            type,
+            id,
+            token,
             qr_code: inputMyCode,
           }}
         />
@@ -383,16 +385,16 @@ const IndicationScreen: React.FC<IProps> = ({
   )
 }
 
-IndicationScreen.defaultProps = {
+IndicationScreenLib.defaultProps = {
   URLs: {
     getIndication: 'INDICATIONS_URL',
     getQRCode: 'INDICATION_QRCODE',
     createLedgerParent: 'CREATE_LEDGER_PARENT',
     updateReferralCode: 'UPDATE_REFERRAL_CODE',
   },
-  activeRegisterLinkAndMedia: false,
-  providerId: -1,
-  providerToken: "",
+  type: 'provider',
+  id: -1,
+  token: "",
   handlerException(title, error) {
     console.error(title, error)
   },
@@ -409,4 +411,4 @@ IndicationScreen.defaultProps = {
   }
 }
 
-export default IndicationScreen
+export default IndicationScreenLib
