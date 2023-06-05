@@ -184,7 +184,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
 
       await Axios.post(URLs.createLedgerParent, {
-        id,
+        [`${type}_id`]: id,
         token,
         referral_code: inputReferralCode,
         type
@@ -195,7 +195,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingIndication(false)
     }
 
-	}, [inputReferralCode, id, token, notifyException])
+	}, [inputReferralCode, id, token, type, notifyException])
 
   /**
    * Função responsável por atualizar um código de indicação.
@@ -213,10 +213,8 @@ const IndicationScreenLib: React.FC<IProps> = ({
         return;
       }
 
-      data
-
       const response = await Axios.post(URLs.updateReferralCode, {
-        id,
+        [`${type}_id`]: id,
         token,
         referral_code: inputMyCode,
       })
@@ -237,7 +235,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
     } finally {
       setLoadingMyCode(false)
     }
-	}, [inputMyCode, id, token])
+	}, [inputMyCode, id, token, type])
 
   /**
    * Função responsável por carregar os dados.
