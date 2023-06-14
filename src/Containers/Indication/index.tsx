@@ -82,6 +82,7 @@ interface IData {
   isCustomIndicationEnabled: boolean;
   enter_indication_code: string;
   share_indication_code: string;
+  is_qrcode_indication: boolean;
 }
 
 const IndicationScreenLib: React.FC<IProps> = ({
@@ -315,9 +316,9 @@ const IndicationScreenLib: React.FC<IProps> = ({
                 placeholder={strings.indication.container_my_code.placeholder}
                 onChangeText={newText => setInpuMyCode(newText)}
               />
-              <InputButton onPress={() => setShowModalQRCode(true)}>
+              {data.is_qrcode_indication && <InputButton onPress={() => setShowModalQRCode(true)}>
                 <Icon name="qrcode" type="antdesign" />
-              </InputButton>
+              </InputButton>}
               <InputButton onPress={handleShared}>
                 <Icon name="share" type="entypo" />
               </InputButton>
