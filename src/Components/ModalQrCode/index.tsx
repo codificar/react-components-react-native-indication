@@ -53,6 +53,7 @@ const ModalQrCode: React.FC<IProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageQrCode, setImageQrCode] = useState<string>('');
+  const [isDisabledButton, setIsDisabledButton] = useState<boolean>(true);
 
   /**
    * Função responsável por tratar algum erro.
@@ -112,6 +113,8 @@ const ModalQrCode: React.FC<IProps> = ({
    *
    */
   const convertToBase64AndShare = useCallback(async () => {
+    setIsDisabledButton(true)
+
     let imagePath: string = '';
     await RNFetchBlob.config({
       fileCache: true
@@ -139,6 +142,8 @@ const ModalQrCode: React.FC<IProps> = ({
     }).catch(error => {
       handlerException('ModalQrCode.shareIndicationQrCode', error);
     });
+
+    setIsDisabledButton(false)
   }, [])
 
   return (
@@ -177,8 +182,11 @@ const ModalQrCode: React.FC<IProps> = ({
         <ButtonShare
           color={String(colors?.button)}
           onPress={() => convertToBase64AndShare()}
+          disabled={isDisabledButton || isLoading}
         >
-          <TextButtonShare color={String(colors?.textButton)}>{strings.indication.share}</TextButtonShare>
+          {isDisabledButton || isLoading
+            ? <Spinner size={32} color={String(colors?.textButton)} />
+            : <TextButtonShare color={String(colors?.textButton)}>{strings.indication.share}</TextButtonShare> }
         </ButtonShare>
 
       </Container>
