@@ -17,6 +17,7 @@ export const Container = styled.View`
 export const ContainerHeader = styled.View`
   padding: 24px 0px;
   align-items: flex-start;
+  flex-direction: row;
 `
 
 export const ContainerBody = styled.View`
@@ -45,8 +46,7 @@ export const Image = styled.ImageBackground<ITheme>`
 export const Title = styled.Text<ITheme>`
   font-size: 25px;
   font-weight: bold;
-  /* margin-bottom: 10px; */
-  /* margin-top: 10px; */
+  padding-left: 16px;
 
   ${props => (props.color) && css`
     color: ${String(props.color)};
