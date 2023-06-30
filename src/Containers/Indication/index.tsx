@@ -108,6 +108,9 @@ const IndicationScreenLib: React.FC<IProps> = ({
   const [inputMyCode, setInpuMyCode] = useState<string>('')
   const [inputReferralCode, setInputReferralCode] = useState<string>('')
 
+  // Control
+  const [inputReferralCodeSuccess, setInputReferralCodeSuccess] = useState<boolean>(false)
+
   // Data
   const [data, setData] = useState<IData>({} as IData)
 
@@ -183,14 +186,23 @@ const IndicationScreenLib: React.FC<IProps> = ({
         return;
       }
 
-
-      await Axios.post(URLs.createLedgerParent, {
+      const response = await Axios.post(URLs.createLedgerParent, {
         [`${type}_id`]: id,
         token,
         referral_code: inputReferralCode,
         type
       })
+
+      if(response.data.success){
+        Toast.show(response.data.message || strings.indication.container_indication.success, { duration: Toast.durations.LONG })
+        setInputReferralCodeSuccess(true)
+        setData(state => { return { ...state, balance_amount_formatted: response.data.balance_amount_formatted}})
+      }else{
+        Toast.show(response.data.message ||strings.indication.create_ledger_error, { duration: Toast.durations.LONG })
+      }
+
     } catch (error) {
+      setInputReferralCodeSuccess(false)
       notifyException(strings.indication.create_ledger_error, error, 'handlerCreateLedgerParent')
     } finally {
       setLoadingIndication(false)
@@ -252,6 +264,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       if(!response.data.success) throw new Error(response.data.error || response.data.errors);
 
       setInpuMyCode(response.data.referral_code)
+      setInputReferralCodeSuccess(response.data.has_parent)
       setData(response.data)
       setLoading(false)
 
@@ -336,7 +349,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
           <Line />
 
-          {!data.has_parent &&
+          {!inputReferralCodeSuccess &&
             <>
               <ContainerCode>
                 <SubTitle color={String(theme?.colors?.title)}>{strings.indication.container_indication.sub_title}</SubTitle>

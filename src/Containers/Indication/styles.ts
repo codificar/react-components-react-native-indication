@@ -6,12 +6,13 @@ interface ITheme {
   color?: String
 }
 
-export const ScrollView = styled.ScrollView``
+export const ScrollView = styled.ScrollView`
+  padding: 0px 16px;
+`
 
 export const SafeAreaView = styled.SafeAreaView`
   background-color: #FFF;
   flex: 1;
-  padding: 0px 16px;
 `
 
 export const ContainerHeader = styled.View`
@@ -21,9 +22,7 @@ export const ContainerHeader = styled.View`
   align-items: center;
 `
 
-export const Title = styled.Text.attrs({
-  numberOfLines: 1,
-})<ITheme>`
+export const Title = styled.Text<ITheme>`
   flex: 1;
   text-align: center;
   font-size: 26px;
