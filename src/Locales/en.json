@@ -1,0 +1,40 @@
+{
+  "indication": {
+    "indication": "Nominations",
+    "join_our_app": "Join our app!",
+    "share_indication_code": "Share Code of Indication",
+    "balance_of_indication": "Indication balance",
+    "clipboard": "Code of indication copied for transfer area.",
+    "share_referral_code": "Share your nomination code",
+    "create_parent": "Enter a friend's nomination code to gain discounts on racing",
+    "total_referrals": "Total indications",
+    "total_rides_earnings": "Total Gains per Race",
+    "create_ledger": "Ledger",
+    "update_code": "change code",
+    "enter_code": "Insert Code:",
+    "empty_code": "Blank indication code.",
+    "share": "To share",
+    "container_my_code": {
+      "sub_title": "My Code",
+      "label": "My Code:",
+      "placeholder": "Your codeo"
+    },
+    "container_indication": {
+      "sub_title": "Recommendation",
+      "label": "Indication Code:",
+      "placeholder": "Enter the Code of Indication here",
+      "success": "Accepted indication code"
+    },
+    "title_shared": "Share your nomination code",
+    "client_buttom": "With the client",
+    "provider_buttom": "With the provider",
+    "error_share": "We couldn't generate the indication QRCode please try later.",
+    "clipboard_error": "Error trying to copy please try later.",
+    "shared_error": "Error trying to share please try later.",
+    "create_ledger_error": "Error trying to use the code of indication, please try later.",
+    "update_referral_code_error": "Error trying to update the indication code, please try later.",
+    "load_data_error": "Error trying to load the data, please try later.",
+    "share_code_error": "Error trying to share the indication code, please try later.",
+    "qr_code_error": "Error when trying to carry the QR code, please try later."
+  }
+}

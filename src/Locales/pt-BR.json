@@ -1,0 +1,40 @@
+{
+  "indication": {
+    "indication": "Indicações",
+    "join_our_app": "Participe do nosso APP!",
+    "share_indication_code": "Compartilhar código de indicação",
+    "balance_of_indication": "Saldo de indicação",
+    "clipboard": "Código de indicação copiado para área de transferência.",
+    "share_referral_code": "Compartilhe seu código de indicação",
+    "create_parent": "Insira o código de indicação de um amigo para ganhar descontos em corridas",
+    "total_referrals": "Total de indicações",
+    "total_rides_earnings": "Total de ganhos por corrida",
+    "create_ledger": "Criar ledger",
+    "update_code": "trocar código",
+    "enter_code": "Inserir código:",
+    "empty_code": "Código de indicação em branco.",
+    "share": "Compartilhar",
+    "container_my_code": {
+      "sub_title": "Meu código",
+      "label": "Meu código:",
+      "placeholder": "Seu código"
+    },
+    "container_indication": {
+      "sub_title": "Indicação",
+      "label": "Código de indicação:",
+      "placeholder": "Insira aqui o código de indicação",
+      "success": "Código de indicação aceito"
+    },
+    "title_shared": "Compartilhe seu código de indicação",
+    "client_buttom": "Com o cliente",
+    "provider_buttom": "Com o prestador",
+    "error_share": "Não conseguimos gerar o qrcode de indicação por favor tente mais tarde.",
+    "clipboard_error": "Erro ao tentar copiar por favor tente mais tarde.",
+    "shared_error": "Erro ao tentar compartilhar por favor tente mais tarde.",
+    "create_ledger_error": "Erro ao tentar usar o código de indicação, por favor tente mais tarde.",
+    "update_referral_code_error": "Erro ao tentar atualizar o código de indicação, por favor tente mais tarde.",
+    "load_data_error": "Erro ao tentar carregar os dados, por favor tente mais tarde.",
+    "share_code_error": "Erro ao tentar compartilhar o código de indicação, por favor tente mais tarde.",
+    "qr_code_error": "Erro ao tentar carregar o QR Code, por favor tente mais tarde."
+  }
+}
