@@ -75,6 +75,7 @@ const ModalQrCode: React.FC<IProps> = ({
     try {
       setImageQrCode('')
       setIsLoading(true)
+      setIsDisabledButton(false)
 
       const response = await Axios.post(getQRCodeURL, {
         provider_id: data.type == 'provider' ? data.id : null,
@@ -96,6 +97,7 @@ const ModalQrCode: React.FC<IProps> = ({
     } catch (error) {
       notifyException(strings.indication.qr_code_error, error, 'getQrCodeIndication');
       setShowModal(false)
+      setIsDisabledButton(true)
     }
   }, [notifyException, getQRCodeURL, data])
 
@@ -180,11 +182,11 @@ const ModalQrCode: React.FC<IProps> = ({
           </Image>
         </ContainerBody>
         <ButtonShare
-          color={String(colors?.button)}
+          color={!(isDisabledButton || isLoading) ? String(colors?.button) : `${String(colors?.button)}55`}
           onPress={() => convertToBase64AndShare()}
           disabled={isDisabledButton || isLoading}
         >
-          {isDisabledButton || isLoading
+          {isLoading || isDisabledButton
             ? <Spinner size={32} color={String(colors?.textButton)} />
             : <TextButtonShare color={String(colors?.textButton)}>{strings.indication.share}</TextButtonShare> }
         </ButtonShare>
