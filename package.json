@@ -1,0 +1,34 @@
+{
+  "name": "react-native-indication",
+  "version": "1.0.0",
+  "description": "A component for share indications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://git.codificar.com.br/react-components/react-native-indication"
+  },
+  "dependencies": {
+    "@react-native-clipboard/clipboard": "1.11.2",
+    "axios": "1.2.1",
+    "react-native-elements": "3.4.3",
+    "react-native-root-toast": "3.3.1",
+    "react-native-share": "8.2.1",
+    "rn-fetch-blob": "0.12.0",
+    "styled-components": "5.3.6"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.68.1"
+  },
+  "author": "Codificar",
+  "bugs": {
+    "url": "https://git.codificar.com.br/react-components/react-native-indication/issues"
+  },
+  "homepage": "https://git.codificar.com.br/react-components/react-native-indication#readme",
+  "devDependencies": {
+    "@types/styled-components-react-native": "^5.2.1"
+  }
+}
