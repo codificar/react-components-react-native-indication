@@ -99,7 +99,7 @@ const ModalShared: React.FC<IModalProps> = ({
     } catch (error) {
       notifyException(strings.indication.share_code_error, error, 'handlerShareCode')
     } finally {
-      HandleCloseModal()
+      if(Platform.OS === 'android') HandleCloseModal()
     }
 
   }, [HandleCloseModal])
