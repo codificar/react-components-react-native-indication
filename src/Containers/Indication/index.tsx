@@ -6,7 +6,7 @@ import Toast from 'react-native-root-toast';
 import Clipboard from '@react-native-clipboard/clipboard';
 
 // Locale
-import { languages } from '../../Locales/index.js';
+import { strings } from '../../Locales/i18n';
 
 // Components
 import ModalQrCode from '../../Components/ModalQrCode';
@@ -115,8 +115,6 @@ const IndicationScreenLib: React.FC<IProps> = ({
   const [data, setData] = useState<IData>({} as IData)
 
   //Get the lang from props. If hasn't lang in props, default is pt-BR
-  const strings = languages(language);
-
   /**
    * Função responsável por tratar algum erro.
    *
@@ -133,11 +131,11 @@ const IndicationScreenLib: React.FC<IProps> = ({
   const handleCopyToClipboard = useCallback(() => {
     try {
       Clipboard.setString(inputMyCode);
-      Toast.show(strings.indication.clipboard,{
+      Toast.show(strings('indication.clipboard'),{
         duration: Toast.durations.SHORT
       });
     } catch (error) {
-      notifyException(strings.indication.clipboard_error, error, 'handleCopyToClipboard')
+      notifyException(strings('indication.clipboard_error'), error, 'handleCopyToClipboard')
     }
   }, [inputMyCode, notifyException])
 
@@ -150,7 +148,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       if (data.active_register_link_and_media) {
         const options = Platform.OS === 'android'
         ? {
-            dialogTitle: strings.indication.share_indication_code,
+            dialogTitle: strings('indication.share_indication_code'),
           }
         : {
             excludedActivityTypes: [
@@ -160,13 +158,13 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
         Share.share({
           message: data[`${Platform.OS}_client_message_referral`],
-          title: strings.indication.join_our_app,
+          title: strings('indication.join_our_app'),
         }, options);
       } else {
         setShowModal(true)
       }
     } catch (error) {
-      notifyException(strings.indication.shared_error, error, 'handleShared')
+      notifyException(strings('indication.shared_error'), error, 'handleShared')
     }
   }, [data, notifyException])
 
@@ -179,7 +177,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingIndication(true)
 
       if (!inputReferralCode) {
-        Toast.show(strings.indication.empty_code,{
+        Toast.show(strings('indication.empty_code'),{
           duration: Toast.durations.LONG
         });
         setLoadingIndication(false)
@@ -194,16 +192,16 @@ const IndicationScreenLib: React.FC<IProps> = ({
       })
 
       if(response.data.success){
-        Toast.show(response.data.message || strings.indication.container_indication.success, { duration: Toast.durations.LONG })
+        Toast.show(response.data.message || strings('indication.container_indication.success'), { duration: Toast.durations.LONG })
         setInputReferralCodeSuccess(true)
         setData(state => { return { ...state, balance_amount_formatted: response.data.balance_amount_formatted}})
       }else{
-        Toast.show(response.data.message ||strings.indication.create_ledger_error, { duration: Toast.durations.LONG })
+        Toast.show(response.data.message ||strings('indication.create_ledger_error'), { duration: Toast.durations.LONG })
       }
 
     } catch (error) {
       setInputReferralCodeSuccess(false)
-      notifyException(strings.indication.create_ledger_error, error, 'handlerCreateLedgerParent')
+      notifyException(strings('indication.create_ledger_error'), error, 'handlerCreateLedgerParent')
     } finally {
       setLoadingIndication(false)
     }
@@ -219,7 +217,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingMyCode(true);
 
       if (!inputMyCode) {
-        Toast.show(strings.indication.empty_code,{
+        Toast.show(strings('indication.empty_code'),{
           duration: Toast.durations.LONG
         });
         setLoadingMyCode(false)
@@ -244,7 +242,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
         duration: Toast.durations.LONG
       });
     } catch (error) {
-      notifyException(strings.indication.update_referral_code_error, error, 'handlerUpdateReferralCode')
+      notifyException(strings('indication.update_referral_code_error'), error, 'handlerUpdateReferralCode')
     } finally {
       setLoadingMyCode(false)
     }
@@ -270,7 +268,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
 		} catch (error) {
       goBack();
-      notifyException(strings.indication.load_data_error, error, 'loadData')
+      notifyException(strings('indication.load_data_error'), error, 'loadData')
 		}
 	}, [id, token])
 
@@ -320,13 +318,13 @@ const IndicationScreenLib: React.FC<IProps> = ({
         </ContainerHeader>
         <ContainerBody>
           <ContainerCode>
-            <SubTitle color={String(theme?.colors?.title)}>{strings.indication.container_my_code.sub_title}</SubTitle>
+            <SubTitle color={String(theme?.colors?.title)}>{strings('indication.container_my_code.sub_title')}</SubTitle>
             <Text color={String(theme?.colors?.text)}>{data.share_indication_code}</Text>
-            <InputLabel>{strings.indication.container_my_code.label}</InputLabel>
+            <InputLabel>{strings('indication.container_my_code.label')}</InputLabel>
             <ContainerInput>
               <TextInput
                 value={inputMyCode}
-                placeholder={strings.indication.container_my_code.placeholder}
+                placeholder={strings('indication.container_my_code.placeholder')}
                 onChangeText={newText => setInpuMyCode(newText)}
               />
               {data.is_qrcode_indication && <InputButton onPress={() => setShowModalQRCode(true)}>
@@ -342,7 +340,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
             <Button onPress={handlerUpdateReferralCode} color={String(theme?.colors?.button)}>
               {loadingMyCode
                 ? <ActivityIndicator color={String(theme?.colors?.textButton)}/>
-                : <TextButton color={String(theme?.colors?.textButton)}>{strings.indication.update_code}</TextButton>
+                : <TextButton color={String(theme?.colors?.textButton)}>{strings('indication.update_code')}</TextButton>
               }
             </Button>
           </ContainerCode>
@@ -352,13 +350,13 @@ const IndicationScreenLib: React.FC<IProps> = ({
           {!inputReferralCodeSuccess &&
             <>
               <ContainerCode>
-                <SubTitle color={String(theme?.colors?.title)}>{strings.indication.container_indication.sub_title}</SubTitle>
+                <SubTitle color={String(theme?.colors?.title)}>{strings('indication.container_indication.sub_title')}</SubTitle>
                 <Text color={String(theme?.colors?.text)}>{data.enter_indication_code}</Text>
-                <InputLabel>{strings.indication.container_indication.label}</InputLabel>
+                <InputLabel>{strings('indication.container_indication.label')}</InputLabel>
                 <ContainerInput>
                   <TextInput
                     value={inputReferralCode}
-                    placeholder={strings.indication.container_indication.placeholder}
+                    placeholder={strings('indication.container_indication.placeholder')}
                     onChangeText={newText => setInputReferralCode(newText)}
                   />
                 </ContainerInput>
@@ -366,7 +364,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
                 <Button onPress={handlerCreateLedgerParent} color={String(theme?.colors?.button)}>
                   {loadingIndication
                     ? <ActivityIndicator color={String(theme?.colors?.textButton)}/>
-                    : <TextButton color={String(theme?.colors?.textButton)}>{strings.indication.create_ledger}</TextButton>
+                    : <TextButton color={String(theme?.colors?.textButton)}>{strings('indication.create_ledger')}</TextButton>
                   }
                 </Button>
               </ContainerCode>
@@ -376,20 +374,20 @@ const IndicationScreenLib: React.FC<IProps> = ({
           }
 
           <ContainerCodeRow>
-            <ItemTitle color={String(theme?.colors?.text)}>{strings.indication.balance_of_indication}</ItemTitle>
+            <ItemTitle color={String(theme?.colors?.text)}>{strings('indication.balance_of_indication')}</ItemTitle>
             <ItemValue color={String(theme?.colors?.title)}>{data.balance_amount_formatted}</ItemValue>
           </ContainerCodeRow>
           {data.isCustomIndicationEnabled &&
             <>
               {!!data.total_simple_referrals &&
                 <ContainerCodeRow>
-                  <ItemTitle color={String(theme?.colors?.text)}>{strings.indication.total_referrals}</ItemTitle>
+                  <ItemTitle color={String(theme?.colors?.text)}>{strings('indication.total_referrals')}</ItemTitle>
                   <ItemValue color={String(theme?.colors?.title)}>{data.total_simple_referrals}</ItemValue>
                 </ContainerCodeRow>
               }
               {!!data.total_compesation_referrals &&
                 <ContainerCodeRow>
-                  <ItemTitle color={String(theme?.colors?.text)}>{strings.indication.total_rides_earnings}</ItemTitle>
+                  <ItemTitle color={String(theme?.colors?.text)}>{strings('indication.total_rides_earnings')}</ItemTitle>
                   <ItemValue color={String(theme?.colors?.title)}>{data.total_compesation_referrals}</ItemValue>
                 </ContainerCodeRow>
               }
