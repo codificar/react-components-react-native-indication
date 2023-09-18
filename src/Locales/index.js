@@ -6,6 +6,12 @@ export const languages = (props) => {
     if (isValidProps(props) && props.toLowerCase() === 'en') {
         return require('./en.json');
     }
+    if (isValidProps(props) && props.toLowerCase() === 'es-py') {
+        return require('./es-PY.json');
+    }
+    if (isValidProps(props) && props.toLowerCase() === 'es') {
+        return require('./es-PY.json');
+    }
     //Get the lang from props. If hasn't lang in props, default is en
     return require('./pt-BR.json');
 }
