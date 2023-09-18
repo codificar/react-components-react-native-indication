@@ -1,5 +1,5 @@
 // Modules
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Platform, Share } from 'react-native';
 import Axios from 'axios'
 import Toast from 'react-native-root-toast';
@@ -107,6 +107,9 @@ const IndicationScreenLib: React.FC<IProps> = ({
   // Input
   const [inputMyCode, setInpuMyCode] = useState<string>('')
   const [inputReferralCode, setInputReferralCode] = useState<string>('')
+
+  // Variável para armazenar valor antigo do InputMyCode 
+  const previousInputMyCode = useRef(inputMyCode);
 
   // Control
   const [inputReferralCodeSuccess, setInputReferralCodeSuccess] = useState<boolean>(false)
@@ -226,11 +229,22 @@ const IndicationScreenLib: React.FC<IProps> = ({
         return;
       }
 
+      if (inputMyCode === previousInputMyCode.current || previousInputMyCode.current == "") {
+        Toast.show(strings.indication.same_code, {
+          duration: Toast.durations.LONG
+        });
+        setLoadingMyCode(false);
+        previousInputMyCode.current = inputMyCode;
+        return;
+      }
+
       const response = await Axios.post(URLs.updateReferralCode, {
         [`${type}_id`]: id,
         token,
         referral_code: inputMyCode,
       })
+
+      previousInputMyCode.current = inputMyCode;
 
       if (!response.data.success){
         Toast.show(response.data.error || response.data.errors, {
