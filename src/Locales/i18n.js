@@ -10,7 +10,9 @@ I18n.translations = {
 	'en': require('./en.json'),
 	'pt-BR': require('./pt-BR.json'),
 	'pt-AO': require('./pt-AO.json'),
-	'pt-PT': require('./pt-AO.json')
+	'pt-PT': require('./pt-AO.json'),
+	'es-PY': require('./es-PY.json'),
+	'es': require('./es-PY.json'),
 };
 
 export const currentLocale = I18n.currentLocale();
@@ -28,7 +30,11 @@ if (currentLocale.indexOf('pt-BR') === 0) {
 } else if (currentLocale.indexOf('pt-AO') === 0 || currentLocale.indexOf('pt-PT') === 0) {
 	require('moment/locale/pt.js');
 	moment.locale('pt');
-} else {
+}
+else if (currentLocale.indexOf('es-PY') === 0 || currentLocale.indexOf('es') === 0) {
+	moment.locale('es-PY');
+}
+ else {
 	moment.locale('en');
 }
 
