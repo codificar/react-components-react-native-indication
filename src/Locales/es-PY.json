@@ -13,6 +13,7 @@
       "update_code": "Cambiar código",
       "enter_code": "Ingresar código:",
       "empty_code": "Código de indicación en blanco.",
+      "same_code": "El código de referencia es el mismo que el actual.",
       "share": "Compartir",
       "container_my_code": {
         "sub_title": "Mi código",
