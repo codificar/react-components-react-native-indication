@@ -40,7 +40,7 @@ import {
 
 // Interfaces
 interface IProps {
-  URLs:{
+  URLs: {
     getQRCode: string;
     getIndication: string;
     createLedgerParent: string;
@@ -126,8 +126,8 @@ const IndicationScreenLib: React.FC<IProps> = ({
    */
   const notifyException = useCallback((message: string, error: string, location: string) => {
     Toast.show(message, { duration: Toast.durations.LONG });
-		handlerException && handlerException(`IndicationScreenLib.${location}`, error);
-	}, [handlerException])
+    handlerException && handlerException(`IndicationScreenLib.${location}`, error);
+  }, [handlerException])
 
   /**
    * Função responsável por copiar o código de indicação.
@@ -136,7 +136,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
   const handleCopyToClipboard = useCallback(() => {
     try {
       Clipboard.setString(inputMyCode);
-      Toast.show(strings.indication.clipboard,{
+      Toast.show(strings.indication.clipboard, {
         duration: Toast.durations.SHORT
       });
     } catch (error) {
@@ -152,10 +152,10 @@ const IndicationScreenLib: React.FC<IProps> = ({
     try {
       if (data.active_register_link_and_media) {
         const options = Platform.OS === 'android'
-        ? {
+          ? {
             dialogTitle: strings.indication.share_indication_code,
           }
-        : {
+          : {
             excludedActivityTypes: [
               'com.apple.UIKit.activity.PostToTwitter',
             ],
@@ -182,7 +182,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingIndication(true)
 
       if (!inputReferralCode) {
-        Toast.show(strings.indication.empty_code,{
+        Toast.show(strings.indication.empty_code, {
           duration: Toast.durations.LONG
         });
         setLoadingIndication(false)
@@ -196,12 +196,12 @@ const IndicationScreenLib: React.FC<IProps> = ({
         type
       })
 
-      if(response.data.success){
+      if (response.data.success) {
         Toast.show(response.data.message || strings.indication.container_indication.success, { duration: Toast.durations.LONG })
         setInputReferralCodeSuccess(true)
-        setData(state => { return { ...state, balance_amount_formatted: response.data.balance_amount_formatted}})
-      }else{
-        Toast.show(response.data.message ||strings.indication.create_ledger_error, { duration: Toast.durations.LONG })
+        setData(state => { return { ...state, balance_amount_formatted: response.data.balance_amount_formatted } })
+      } else {
+        Toast.show(response.data.message || strings.indication.create_ledger_error, { duration: Toast.durations.LONG })
       }
 
     } catch (error) {
@@ -211,7 +211,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingIndication(false)
     }
 
-	}, [inputReferralCode, id, token, type, notifyException])
+  }, [inputReferralCode, id, token, type, notifyException])
 
   /**
    * Função responsável por atualizar um código de indicação.
@@ -222,14 +222,14 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingMyCode(true);
 
       if (!inputMyCode) {
-        Toast.show(strings.indication.empty_code,{
+        Toast.show(strings.indication.empty_code, {
           duration: Toast.durations.LONG
         });
         setLoadingMyCode(false)
         return;
       }
 
-      if (inputMyCode === previousInputMyCode.current || previousInputMyCode.current == "") {
+      if (inputMyCode === previousInputMyCode.current || previousInputMyCode.current == inputReferralCode) {
         Toast.show(strings.indication.same_code, {
           duration: Toast.durations.LONG
         });
@@ -244,10 +244,10 @@ const IndicationScreenLib: React.FC<IProps> = ({
         referral_code: inputMyCode,
       })
 
-      previousInputMyCode.current = inputMyCode;
 
-      if (!response.data.success){
-        Toast.show(response.data.error || response.data.errors, {
+
+      if (!response.data.success) {
+        Toast.show(response.data.message || response.data.errors, {
           duration: Toast.durations.LONG
         });
         setLoadingMyCode(false)
@@ -262,31 +262,31 @@ const IndicationScreenLib: React.FC<IProps> = ({
     } finally {
       setLoadingMyCode(false)
     }
-	}, [inputMyCode, id, token, type])
+  }, [inputMyCode, id, token, type])
 
   /**
    * Função responsável por carregar os dados.
    *
    */
   const LoadData = useCallback(async () => {
-		try {
+    try {
       setLoading(true)
       const response = await Axios.get(URLs.getIndication, {
-        params: {id, token, },
+        params: { id, token, },
       });
 
-      if(!response.data.success) throw new Error(response.data.error || response.data.errors);
+      if (!response.data.success) throw new Error(response.data.error || response.data.errors);
 
       setInpuMyCode(response.data.referral_code)
       setInputReferralCodeSuccess(response.data.has_parent)
       setData(response.data)
       setLoading(false)
 
-		} catch (error) {
+    } catch (error) {
       goBack();
       notifyException(strings.indication.load_data_error, error, 'loadData')
-		}
-	}, [id, token])
+    }
+  }, [id, token])
 
   useEffect(() => { LoadData() }, [LoadData])
 
@@ -300,7 +300,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
           colors={theme.colors}
           showModal={showModal}
           setShowModal={setShowModal}
-					handlerException={handlerException}
+          handlerException={handlerException}
           client={{
             message: {
               ios: data.ios_client_message_referral,
@@ -355,7 +355,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
             </ContainerInput>
             <Button onPress={handlerUpdateReferralCode} color={String(theme?.colors?.button)}>
               {loadingMyCode
-                ? <ActivityIndicator color={String(theme?.colors?.textButton)}/>
+                ? <ActivityIndicator color={String(theme?.colors?.textButton)} />
                 : <TextButton color={String(theme?.colors?.textButton)}>{strings.indication.update_code}</TextButton>
               }
             </Button>
@@ -379,7 +379,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
                 <Button onPress={handlerCreateLedgerParent} color={String(theme?.colors?.button)}>
                   {loadingIndication
-                    ? <ActivityIndicator color={String(theme?.colors?.textButton)}/>
+                    ? <ActivityIndicator color={String(theme?.colors?.textButton)} />
                     : <TextButton color={String(theme?.colors?.textButton)}>{strings.indication.create_ledger}</TextButton>
                   }
                 </Button>
@@ -436,7 +436,7 @@ IndicationScreenLib.defaultProps = {
     console.warn('FECHAR')
   },
   theme: {
-    colors:{
+    colors: {
       button: '#072c75',
       textButton: 'white',
       title: '#111',
