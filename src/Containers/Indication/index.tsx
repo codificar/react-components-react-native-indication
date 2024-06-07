@@ -104,12 +104,9 @@ const IndicationScreenLib: React.FC<IProps> = ({
   const [showModal, setShowModal] = useState(false)
   const [showModalQRCode, setShowModalQRCode] = useState(false)
 
-  // Input
+  // INPUT
   const [inputMyCode, setInpuMyCode] = useState<string>('')
   const [inputReferralCode, setInputReferralCode] = useState<string>('')
-
-  // Variável para armazenar valor antigo do InputMyCode 
-  const previousInputMyCode = useRef(inputMyCode);
 
   // Control
   const [inputReferralCodeSuccess, setInputReferralCodeSuccess] = useState<boolean>(false)
@@ -143,6 +140,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
       notifyException(strings.indication.clipboard_error, error, 'handleCopyToClipboard')
     }
   }, [inputMyCode, notifyException])
+
 
   /**
    * Função responsável por compartilhar o código de indicação.
@@ -213,11 +211,13 @@ const IndicationScreenLib: React.FC<IProps> = ({
 
 	}, [inputReferralCode, id, token, type, notifyException])
 
+
   /**
    * Função responsável por atualizar um código de indicação.
    *
    */
   const handlerUpdateReferralCode = useCallback(async () => {
+    const codeFromDB = await loadCodeFromDB();
     try {
       setLoadingMyCode(true);
 
@@ -228,13 +228,12 @@ const IndicationScreenLib: React.FC<IProps> = ({
         setLoadingMyCode(false)
         return;
       }
-
-      if (inputMyCode === previousInputMyCode.current || previousInputMyCode.current == "") {
+     
+      if (inputMyCode === codeFromDB) {
         Toast.show(strings.indication.same_code, {
           duration: Toast.durations.LONG
         });
         setLoadingMyCode(false);
-        previousInputMyCode.current = inputMyCode;
         return;
       }
 
@@ -244,10 +243,9 @@ const IndicationScreenLib: React.FC<IProps> = ({
         referral_code: inputMyCode,
       })
 
-      previousInputMyCode.current = inputMyCode;
 
       if (!response.data.success){
-        Toast.show(response.data.error || response.data.errors, {
+        Toast.show(response.data.message || response.data.error || response.data.errors, {
           duration: Toast.durations.LONG
         });
         setLoadingMyCode(false)
@@ -263,6 +261,27 @@ const IndicationScreenLib: React.FC<IProps> = ({
       setLoadingMyCode(false)
     }
 	}, [inputMyCode, id, token, type])
+
+
+  /**
+   * Função responsável por carregar o código de cupom do usuário vindo do banco de dados
+   *
+   */
+  const loadCodeFromDB = useCallback(async () => {
+		try {
+      const response = await Axios.get(URLs.getIndication, {
+        params: {id, token, },
+      });
+
+      if(!response.data.success) throw new Error(response.data.error || response.data.errors);
+
+      return response.data.referral_code;
+
+		} catch (error) {
+      goBack();
+      notifyException(strings.indication.update_referral_code_error, error, 'loadCodeFromDB')
+		}
+	}, [id, token])
 
   /**
    * Função responsável por carregar os dados.
