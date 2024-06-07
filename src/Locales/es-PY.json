@@ -1,42 +1,41 @@
 {
-    "indication": {
-      "indication": "Indicaciones",
-      "join_our_app": "¡Únete a nuestra APP!",
-      "share_indication_code": "Compartir código de indicación",
-      "balance_of_indication": "Saldo de indicación",
-      "clipboard": "Código de indicación copiado al portapapeles.",
-      "share_referral_code": "Comparte tu código de indicación",
-      "create_parent": "Ingresa el código de indicación de un amigo para obtener descuentos en viajes",
-      "total_referrals": "Total de indicaciones",
-      "total_rides_earnings": "Total de ganancias por viaje",
-      "create_ledger": "Crear ledger",
-      "update_code": "Cambiar código",
-      "enter_code": "Ingresar código:",
-      "empty_code": "Código de indicación en blanco.",
-      "same_code": "El código de referencia es el mismo que el actual.",
-      "share": "Compartir",
-      "container_my_code": {
-        "sub_title": "Mi código",
-        "label": "Mi código:",
-        "placeholder": "Tu código"
-      },
-      "container_indication": {
-        "sub_title": "Indicación",
-        "label": "Código de indicación:",
-        "placeholder": "Ingresa aquí el código de indicación",
-        "success": "Código de indicación aceptado"
-      },
-      "title_shared": "Comparte tu código de indicación",
-      "client_buttom": "Con el cliente",
-      "provider_buttom": "Con el proveedor",
-      "error_share": "No pudimos generar el código QR de indicación, por favor inténtalo más tarde.",
-      "clipboard_error": "Error al intentar copiar, por favor inténtalo más tarde.",
-      "shared_error": "Error al intentar compartir, por favor inténtalo más tarde.",
-      "create_ledger_error": "Error al intentar usar el código de indicación, por favor inténtalo más tarde.",
-      "update_referral_code_error": "Error al intentar actualizar el código de indicación, por favor inténtalo más tarde.",
-      "load_data_error": "Error al intentar cargar los datos, por favor inténtalo más tarde.",
-      "share_code_error": "Error al intentar compartir el código de indicación, por favor inténtalo más tarde.",
-      "qr_code_error": "Error al intentar cargar el código QR, por favor inténtalo más tarde."
-    }
+  "indication": {
+    "indication": "Indicaciones",
+    "join_our_app": "¡Únete a nuestra APP!",
+    "share_indication_code": "Compartir código de indicación",
+    "balance_of_indication": "Saldo de indicación",
+    "clipboard": "Código de indicación copiado al portapapeles.",
+    "share_referral_code": "Comparte tu código de indicación",
+    "create_parent": "Ingresa el código de indicación de un amigo para obtener descuentos en viajes",
+    "total_referrals": "Total de indicaciones",
+    "total_rides_earnings": "Total de ganancias por viaje",
+    "create_ledger": "Crear ledger",
+    "update_code": "Cambiar código",
+    "enter_code": "Ingresar código:",
+    "empty_code": "Código de indicación en blanco.",
+    "same_code": "The reference code is the same as the current one",
+    "share": "Compartir",
+    "container_my_code": {
+      "sub_title": "Mi código",
+      "label": "Mi código:",
+      "placeholder": "Tu código"
+    },
+    "container_indication": {
+      "sub_title": "Indicación",
+      "label": "Código de indicación:",
+      "placeholder": "Ingresa aquí el código de indicación",
+      "success": "Código de indicación aceptado"
+    },
+    "title_shared": "Comparte tu código de indicación",
+    "client_buttom": "Con el cliente",
+    "provider_buttom": "Con el proveedor",
+    "error_share": "No pudimos generar el código QR de indicación, por favor inténtalo más tarde.",
+    "clipboard_error": "Error al intentar copiar, por favor inténtalo más tarde.",
+    "shared_error": "Error al intentar compartir, por favor inténtalo más tarde.",
+    "create_ledger_error": "Error al intentar usar el código de indicación, por favor inténtalo más tarde.",
+    "update_referral_code_error": "Error al intentar actualizar el código de indicación, por favor inténtalo más tarde.",
+    "load_data_error": "Error al intentar cargar los datos, por favor inténtalo más tarde.",
+    "share_code_error": "Error al intentar compartir el código de indicación, por favor inténtalo más tarde.",
+    "qr_code_error": "Error al intentar cargar el código QR, por favor inténtalo más tarde."
   }
-  
+}
