@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://git.codificar.com.br/react-components/react-native-indication"
+    "url": "git+https://github.com/codificar/react-components-react-native-indication"
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "1.11.2",
@@ -25,9 +25,9 @@
   },
   "author": "Codificar",
   "bugs": {
-    "url": "https://git.codificar.com.br/react-components/react-native-indication/issues"
+    "url": "https://github.com/codificar/react-components-react-native-indication/issues"
   },
-  "homepage": "https://git.codificar.com.br/react-components/react-native-indication#readme",
+  "homepage": "https://github.com/codificar/react-components-react-native-indication#readme",
   "devDependencies": {
     "@types/styled-components-react-native": "^5.2.1"
   }
