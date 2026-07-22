@@ -86,14 +86,30 @@ interface IData {
 }
 
 const IndicationScreenLib: React.FC<IProps> = ({
-  URLs,
-  theme,
-  language,
-  type,
-  id,
-  token,
-  goBack,
-  handlerException
+  URLs = {
+    getIndication: 'INDICATIONS_URL',
+    getQRCode: 'INDICATION_QRCODE',
+    createLedgerParent: 'CREATE_LEDGER_PARENT',
+    updateReferralCode: 'UPDATE_REFERRAL_CODE',
+  },
+  theme = {
+    colors: {
+      button: '#072c75',
+      textButton: 'white',
+      title: '#111',
+      text: '#555',
+    },
+  },
+  language = 'en',
+  type = 'provider',
+  id = -1,
+  token = "",
+  goBack = () => {
+    console.warn('FECHAR')
+  },
+  handlerException = (title, error) => {
+    console.error(title, error)
+  }
 }) => {
   // Loadings
   const [loading, setLoading] = useState(false)
@@ -435,33 +451,6 @@ const IndicationScreenLib: React.FC<IProps> = ({
       </ScrollView>
     </SafeAreaView>
   )
-}
-
-IndicationScreenLib.defaultProps = {
-  URLs: {
-    getIndication: 'INDICATIONS_URL',
-    getQRCode: 'INDICATION_QRCODE',
-    createLedgerParent: 'CREATE_LEDGER_PARENT',
-    updateReferralCode: 'UPDATE_REFERRAL_CODE',
-  },
-  language: 'en',
-  type: 'provider',
-  id: -1,
-  token: "",
-  handlerException(title, error) {
-    console.error(title, error)
-  },
-  goBack() {
-    console.warn('FECHAR')
-  },
-  theme: {
-    colors:{
-      button: '#072c75',
-      textButton: 'white',
-      title: '#111',
-      text: '#555',
-    },
-  }
 }
 
 export default IndicationScreenLib
