@@ -1,6 +1,7 @@
 // Modules
 import styled, { css } from "styled-components/native";
 import { Icon as RNEIcon } from "react-native-elements";
+import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 
 interface ITheme {
   color?: String
@@ -10,13 +11,19 @@ export const ScrollView = styled.ScrollView`
   padding: 0px 16px;
 `
 
-export const SafeAreaView = styled.SafeAreaView`
+// styled.SafeAreaView (core RN) e' no-op no Android — trocado pelo primitivo
+// do safe-area-context pra aplicar inset de verdade nas duas plataformas.
+export const SafeAreaView = styled(RNSafeAreaView)`
   background-color: #FFF;
   flex: 1;
 `
 
+// padding-top era 32px fixo, empurrando o botao de voltar bem abaixo do
+// padrao de 16dp do resto do app (a SafeAreaView ja cobre o inset real do
+// topo). Reduzido pra 16px pra alinhar com as outras telas, sem mexer na
+// composicao centralizada icone+titulo.
 export const ContainerHeader = styled.View`
-  padding: 32px 0;
+  padding: 16px 0 32px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -35,8 +42,13 @@ export const Title = styled.Text<ITheme>`
 
 `
 
+// Padronizado para o icone 24dp do app (era 26px font-awesome-5). O alvo de
+// toque de 48dp vem via hitSlop passado no uso (index.tsx) — RNEIcon repassa
+// hitSlop/accessibilityRole/accessibilityLabel pro Touchable interno sem
+// precisar de wrapper, entao a posicao/layout do header nao muda.
 export const IconHeader = styled(RNEIcon).attrs({
-  size: 26,
+  size: 24,
+  type: 'feather',
 })``
 
 export const ContainerBody = styled.View``

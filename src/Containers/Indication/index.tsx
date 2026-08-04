@@ -328,7 +328,7 @@ const IndicationScreenLib: React.FC<IProps> = ({
   if (loading) return <ContainerLoading><ActivityIndicator color={String(theme?.colors?.button)} size={64} /></ContainerLoading>
 
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={['top', 'left', 'right', 'bottom']}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <ModalShared
           language={language}
@@ -364,7 +364,14 @@ const IndicationScreenLib: React.FC<IProps> = ({
           }}
         />
         <ContainerHeader>
-          <IconHeader onPress={() => goBack()} name='arrow-left' color={String(theme?.colors?.title)} type="font-awesome-5" />
+          <IconHeader
+            onPress={() => goBack()}
+            name='arrow-left'
+            color={String(theme?.colors?.title)}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            accessibilityRole="button"
+            accessibilityLabel="Voltar"
+          />
           <Title color={theme?.colors?.title}>{data.program_name}</Title>
         </ContainerHeader>
         <ContainerBody>
